@@ -1,4 +1,4 @@
-# Project Title
+# Geez Numeral Converter Algorithm
 
 Introducing the Geez Numeral Converter, a versatile tool that facilitates bidirectional conversion between the Geez (Ethiopic) and Arabic numeral systems. Originally coded in the BunnaScript programming language and subsequently translated into its JavaScript counterpart, this converter boasts a robust and well-researched algorithm.
 
