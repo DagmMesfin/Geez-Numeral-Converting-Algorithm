@@ -13,59 +13,53 @@ function ቀዳሜ() {
 }
 ቀዳሜ();
 function ቀያሪ(ግእዝ_ቁ) {
-    var ቁጥሩ = 0;
-    var ከ_እልፍ_በፊት = '';
-    var ርቢው = 14;
-    var ብዜት = Math.pow(10, ርቢው);
-    var አስሩ_ወአንዱ = '';
-    var ቀዲሙ = ግእዝ_ቁ;
-    for (var ለ = 0; ለ < እልፍዮሽ.length; ለ++) {
-        if (ለ < እልፍዮሽ.length - 1) {
-            if (ግእዝ_ቁ.includes(እልፍዮሽ[ለ])) {
-                ከ_እልፍ_በፊት = ግእዝ_ቁ.slice(0, ግእዝ_ቁ.indexOf(እልፍዮሽ[ለ]) + እልፍዮሽ[ለ].length);
-                ግእዝ_ቁ = ግእዝ_ቁ.slice(ግእዝ_ቁ.indexOf(እልፍዮሽ[ለ]) + እልፍዮሽ[ለ].length, ግእዝ_ቁ.length);
-                if (ከ_እልፍ_በፊት.length - እልፍዮሽ[ለ].length == 2) {
-                    አስሩ_ወአንዱ = ከ_እልፍ_በፊት.slice(0, 2);
-                    ቁጥሩ += (((አስሮ.indexOf(አስሩ_ወአንዱ[0]) + 1) * 10) + (አንዶ.indexOf(አስሩ_ወአንዱ[1]) + 1)) * ብዜት;
-                }
-                else if (ከ_እልፍ_በፊት.length - እልፍዮሽ[ለ].length == 1) {
-                    አስሩ_ወአንዱ = ከ_እልፍ_በፊት[0];
-                    for (var ሀ = 0; ሀ < አንዶ.length; ሀ++) {
-                        if (አስሩ_ወአንዱ == አንዶ[ሀ]) {
-                            ቁጥሩ += (ሀ + 1) * ብዜት;
-                            break;
-                        }
-                        else if (አስሩ_ወአንዱ == አስሮ[ሀ]) {
-                            ቁጥሩ += (ሀ + 1) * 10 * ብዜት;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    ቁጥሩ += ብዜት;
-                }
+    let ቁጥሩ = 0;
+    let ርቢው = 14;
+    let ብዜት = 10 ** ርቢው;
+
+    for (let ለ = 0; ለ < እልፍዮሽ.length; ለ++) {
+        const እልፍ = እልፍዮሽ[ለ];
+
+        if (ለ < እልፍዮሽ.length - 1 && ግእዝ_ቁ.includes(እልፍ)) {
+            const index = ግእዝ_ቁ.indexOf(እልፍ);
+            const ክፍል = ግእዝ_ቁ.slice(0, index);
+            ግእዝ_ቁ = ግእዝ_ቁ.slice(index + እልፍ.length);
+
+            if (ክፍል.length === 2) {
+                const [t, o] = ክፍል;
+                const አስር = አስሮ.indexOf(t) + 1;
+                const አንድ = አንዶ.indexOf(o) + 1;
+                ቁጥሩ += (አስር * 10 + አንድ) * ብዜት;
+            } else if (ክፍል.length === 1) {
+                const ch = ክፍል[0];
+                const idx1 = አንዶ.indexOf(ch);
+                const idx10 = አስሮ.indexOf(ch);
+                if (idx1 !== -1) ቁጥሩ += (idx1 + 1) * ብዜት;
+                else if (idx10 !== -1) ቁጥሩ += (idx10 + 1) * 10 * ብዜት;
+            } else {
+                ቁጥሩ += ብዜት;
             }
+
             ርቢው -= 2;
-            ብዜት = Math.pow(10, ርቢው);
+            ብዜት = 10 ** ርቢው;
         }
-        else if (ለ == እልፍዮሽ.length - 1) {
-            if (ግእዝ_ቁ.length == 2) {
-                ቁጥሩ += (((አስሮ.indexOf(ግእዝ_ቁ[0]) + 1) * 10) + (አንዶ.indexOf(ግእዝ_ቁ[1]) + 1));
-            }
-            else if (ግእዝ_ቁ.length == 1) {
-                for (var ሀ = 0; ሀ < አንዶ.length; ሀ++) {
-                    if (ግእዝ_ቁ == አንዶ[ሀ]) {
-                        ቁጥሩ += (ሀ + 1);
-                        break;
-                    }
-                    else if (ግእዝ_ቁ == አስሮ[ሀ]) {
-                        ቁጥሩ += (ሀ + 1) * 10;
-                        break;
-                    }
-                }
+
+        // Handle the last remaining part (1–99)
+        if (ለ === እልፍዮሽ.length - 1) {
+            if (ግእዝ_ቁ.length === 2) {
+                const አስር = አስሮ.indexOf(ግእዝ_ቁ[0]) + 1;
+                const አንድ = አንዶ.indexOf(ግእዝ_ቁ[1]) + 1;
+                ቁጥሩ += አስር * 10 + አንድ;
+            } else if (ግእዝ_ቁ.length === 1) {
+                const ch = ግእዝ_ቁ[0];
+                const idx1 = አንዶ.indexOf(ch);
+                const idx10 = አስሮ.indexOf(ch);
+                if (idx1 !== -1) ቁጥሩ += idx1 + 1;
+                else if (idx10 !== -1) ቁጥሩ += (idx10 + 1) * 10;
             }
         }
     }
+
     return ቁጥሩ;
 }
 //©2013 ዓ.ም:: ሁሉም መብቶች ተፈፃሚነት አላቸው!!! መተግበሪያችንን ስለተጠቀሙ እናመሰግናለን!
